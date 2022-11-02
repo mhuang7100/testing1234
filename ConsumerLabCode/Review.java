@@ -1,4 +1,3 @@
-package ConsumerLabCode;
 
 import java.util.Scanner;
 import java.io.File;
@@ -19,6 +18,10 @@ public class Review {
   
   private static final String SPACE = " ";
   
+  public static void main(String[] args){
+      System.out.println((totalSentiment("/workspace/testing1234/ConsumerLabCode/SimpleReview.txt")));
+  }
+
   static{
     try {
       Scanner input = new Scanner(new File("/workspace/testing1234/ConsumerLabCode/cleanSentiment.csv"));
@@ -165,5 +168,20 @@ public class Review {
     } else {
       return randomNegativeAdj();
     }
+  }
+
+  public static double totalSentiment(String fileName){
+    String file = textToString(fileName);
+    int startWord = 0;
+    int endWord = file.indexOf(" ");
+    double sentiment = 0;
+    while (endWord != -1){
+      sentiment += sentimentVal(file.substring(startWord, endWord));
+      if (!(endWord == file.length())){
+        startWord = endWord + 1;
+      } else startWord += 1;
+      endWord = file.substring(startWord).indexOf(" ");
+    }
+    return sentiment;
   }
 }
