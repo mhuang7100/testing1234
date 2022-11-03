@@ -173,7 +173,6 @@ public class Review {
 
   public static double totalSentiment(String fileName){
     String file = textToString(fileName);
-    System.out.println(file);
     int startWord = 0;
     int endWord = file.indexOf(" ");
     double sentiment = 0;
@@ -182,6 +181,7 @@ public class Review {
       word.replace(".", "");
       word.replace(",", "");
       word.replace("!", "");
+      word.replace("''", "");
       sentiment += sentimentVal(word);
       if (!(endWord == file.length())){
         startWord = endWord + 1;
@@ -192,23 +192,8 @@ public class Review {
   }
 
   public static int starRating(String fileName){
-    String file = textToString(fileName);
-    System.out.println(file);
-    int startWord = 0;
-    int endWord = file.indexOf(" ");
-    double sentiment = 0;
+    double sentiment = totalSentiment(fileName);
     int starRating;
-    while (endWord > startWord){
-      String word = file.substring(startWord, endWord);
-      word.replace(".", "");
-      word.replace(",", "");
-      word.replace("!", "");
-      sentiment += sentimentVal(word);
-      if (!(endWord == file.length())){
-        startWord = endWord + 1;
-      } else startWord += 1;
-      endWord = file.substring(startWord).indexOf(" ") + startWord;
-    }
     if (sentiment < 0){
       starRating = 1;
     } else if (sentiment < 10){
@@ -217,7 +202,7 @@ public class Review {
       starRating = 3;
     } else if (sentiment < 30){
       starRating = 4;
-    } else starRating = 5;
+    } else starRating = 4;
     
     return starRating;
   }
