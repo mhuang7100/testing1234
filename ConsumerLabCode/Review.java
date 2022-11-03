@@ -19,8 +19,7 @@ public class Review {
   private static final String SPACE = " ";
   
   public static void main(String[] args){
-    System.out.println((totalSentiment("/workspace/testing1234/ConsumerLabCode/SimpleReview.txt")));
-    System.out.println((starRating("/workspace/testing1234/ConsumerLabCode/SimpleReview.txt")));
+    System.out.println(fakeReview("/workspace/testing1234/ConsumerLabCode/SimpleReview.txt"));
   }
 
   static{
@@ -205,5 +204,17 @@ public class Review {
     } else starRating = 4;
     
     return starRating;
+  }
+
+  public static String fakeReview(String fileName){
+    String fake = textToString(fileName);
+    int startWord = fake.indexOf("*");
+    while (startWord != -1){
+      int endWord = fake.substring(startWord).indexOf(" ") + startWord;
+      String word = fake.substring(startWord, endWord);
+      fake = fake.replace(word, randomPositiveAdj());;
+      startWord = fake.indexOf("*");
+    }
+    return fake;
   }
 }
