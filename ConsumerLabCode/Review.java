@@ -20,6 +20,7 @@ public class Review {
   
   public static void main(String[] args){
     System.out.println((totalSentiment("/workspace/testing1234/ConsumerLabCode/SimpleReview.txt")));
+    System.out.println((starRating("/workspace/testing1234/ConsumerLabCode/SimpleReview.txt")));
   }
 
   static{
@@ -188,5 +189,36 @@ public class Review {
       endWord = file.substring(startWord).indexOf(" ") + startWord;
     }
     return sentiment;
+  }
+
+  public static int starRating(String fileName){
+    String file = textToString(fileName);
+    System.out.println(file);
+    int startWord = 0;
+    int endWord = file.indexOf(" ");
+    double sentiment = 0;
+    int starRating;
+    while (endWord > startWord){
+      String word = file.substring(startWord, endWord);
+      word.replace(".", "");
+      word.replace(",", "");
+      word.replace("!", "");
+      sentiment += sentimentVal(word);
+      if (!(endWord == file.length())){
+        startWord = endWord + 1;
+      } else startWord += 1;
+      endWord = file.substring(startWord).indexOf(" ") + startWord;
+    }
+    if (sentiment < 0){
+      starRating = 1;
+    } else if (sentiment < 10){
+      starRating = 2;
+    } else if (sentiment < 20){
+      starRating = 3;
+    } else if (sentiment < 30){
+      starRating = 4;
+    } else starRating = 5;
+    
+    return starRating;
   }
 }
