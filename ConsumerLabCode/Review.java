@@ -19,7 +19,7 @@ public class Review {
   private static final String SPACE = " ";
   
   public static void main(String[] args){
-      System.out.println((totalSentiment("/workspace/testing1234/ConsumerLabCode/SimpleReview.txt")));
+    System.out.println((totalSentiment("/workspace/testing1234/ConsumerLabCode/SimpleReview.txt")));
   }
 
   static{
@@ -172,15 +172,20 @@ public class Review {
 
   public static double totalSentiment(String fileName){
     String file = textToString(fileName);
+    System.out.println(file);
     int startWord = 0;
     int endWord = file.indexOf(" ");
     double sentiment = 0;
-    while (endWord != -1){
-      sentiment += sentimentVal(file.substring(startWord, endWord));
+    while (endWord > startWord){
+      String word = file.substring(startWord, endWord);
+      word.replace(".", "");
+      word.replace(",", "");
+      word.replace("!", "");
+      sentiment += sentimentVal(word);
       if (!(endWord == file.length())){
         startWord = endWord + 1;
       } else startWord += 1;
-      endWord = file.substring(startWord).indexOf(" ");
+      endWord = file.substring(startWord).indexOf(" ") + startWord;
     }
     return sentiment;
   }

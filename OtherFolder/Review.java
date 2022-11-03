@@ -1,4 +1,5 @@
-package consumerLabCode;
+package OtherFolder;
+
 
 import java.util.Scanner;
 import java.io.File;
