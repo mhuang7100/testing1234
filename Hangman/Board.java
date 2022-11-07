@@ -2,10 +2,10 @@ package Hangman;
 import java.util.Scanner;
 import java.io.File;
 public class Board{
-  static String phrase = loadPhrase();
+  String phrase = loadPhrase();
   // list of all different letters in the phrase separated by spaces
-  static String letters = "";
-  static String phraseBlanks = phrase;
+  String letters = "";
+  String phraseBlanks = phrase;
   
   for (int i = 0; i < phrase.length(); i++){
     String letter = phrase.substring(i, i + 1);
@@ -18,11 +18,11 @@ public class Board{
     if (!letter.equals(" "))
       phraseBlanks = phraseBlanks.replace(letter, "_");
   }
-  public static void printBoard(){
+  public void printBoard(){
     System.out.println(phraseBlanks);
   }
 
-  public static void makeGuess(String guess){
+  public void makeGuess(String guess){
     int charLocation = phrase.indexOf(guess);
     if (charLocation == -1){
       System.out.println("Nope, that letter isn't in the phrase.");
