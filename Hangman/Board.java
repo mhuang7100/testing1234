@@ -33,7 +33,7 @@ public class Board{
         finished = true;
       }
     }
-    System.out.println("Good job, you got it!");
+    System.out.println("Congratulations, you got it!");
   }
 
   public String getInput(){
@@ -48,6 +48,7 @@ public class Board{
   public void makeGuess(String guess){
     String tempString = phrase;
     int charLocation = phrase.indexOf(guess);
+    System.out.println("\033[H");
     if (charLocation == -1){
       System.out.println("Nope, that letter isn't in the phrase.");
     } else {
