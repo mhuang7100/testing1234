@@ -2,12 +2,19 @@ package Hangman;
 import java.util.Scanner;
 import java.io.File;
 public class Board{
+  // gets the random unknown phrase 
   String phrase = loadPhrase();
   boolean finished = false;
   // list of all different letters in the phrase separated by spaces
   String letters = "";
+  String lettersGuessed = "";
   String phraseBlanks = phrase;
+  
+  // how many of the letter guessed is in the phrase
+  int numLetters;
   Scanner sc = new Scanner(System.in);
+  
+  
   public Board(){
     for (int i = 0; i < phrase.length(); i++){
       String letter = phrase.substring(i, i + 1);
@@ -27,8 +34,14 @@ public class Board{
   }
 
   public void initiateGame(){
+    System.out.println("\033[H\033[2J");
+    System.out.println(phraseBlanks);
+    System.out.println("Guess the letter or the phrase!");
     while (finished == false){
       makeGuess(getInput());
+
+      //score 
+      
       if (phraseBlanks.equals(phrase)){
         finished = true;
       }
@@ -36,31 +49,45 @@ public class Board{
     System.out.println("Congratulations, you got it!");
   }
 
+  // gets the input for 
   public String getInput(){
     String input = sc.nextLine();
     while (input.length() != 1){
-      System.out.println("Please input a letter!");
-      input = sc.nextLine();
+      if (input.equals(phrase)){
+        System.out.println("Wow! you guessed it!");
+        System.exit(0);
+      } else {
+        System.out.println("Please input a letter!");
+        input = sc.nextLine();
+      }
     }
     return input;
   }
 
+  // makes a single guess for a letter
   public void makeGuess(String guess){
     String tempString = phrase;
+    System.out.println("\033[H\033[2J");
     int charLocation = phrase.indexOf(guess);
-    System.out.println("\033[H");
-    if (charLocation == -1){
+    if (lettersGuessed.indexOf(guess) != -1){
+      System.out.println("You already guessed this!");
+    } else if (charLocation == -1){
       System.out.println("Nope, that letter isn't in the phrase.");
+      lettersGuessed += guess + " ";
     } else {
       System.out.println("Yep, that letter is in the phrase.");
+      numLetters = 0;
+      lettersGuessed += guess + " ";
       while (charLocation != -1){
         charLocation += phrase.length() - tempString.length();
         phraseBlanks = phraseBlanks.substring(0, charLocation) + guess + phraseBlanks.substring(charLocation + 1);
         tempString = phrase.substring(charLocation + 1);
+        numLetters += 1;
         charLocation = tempString.indexOf(guess);
       }
     }
     printBoard();
+    System.out.println("\nLetters guessed:" + lettersGuessed);
   }
 
   private static String loadPhrase()

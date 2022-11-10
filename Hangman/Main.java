@@ -7,7 +7,6 @@ public class Main {
         System.out.println(num);
 
         Board newBoard = new Board();
-        System.out.println(newBoard.phrase);
         newBoard.initiateGame();
 
 
