@@ -34,6 +34,9 @@ public class Board{
       if (!letter.equals(" "))
         phraseBlanks = phraseBlanks.replace(letter, "_");
     }
+
+    Player1 = play1;
+    Player2 = play2;
   }
   
 
@@ -52,7 +55,11 @@ public class Board{
       System.out.println(randomNumber);
       makeGuess(getInput());
       // player gets score of [value * numLetters]
-      
+      if (activePlayer == 1){
+        Player1.addScore(numLetters * randomNumber);
+      } else Player2.addScore(numLetters * randomNumber);
+
+
 
       if (phraseBlanks.equals(phrase)){
         finished = true;
@@ -60,7 +67,6 @@ public class Board{
     }
     System.out.println("Congratulations, you got it!");
   }
-
   // gets the input for a guess or a phrase
   public String getInput(){
     String input = sc.nextLine();
@@ -92,7 +98,11 @@ public class Board{
       // switches player if they make a wrong guess
       if (activePlayer == 1){
         activePlayer = 2;
-      } else activePlayer = 1;
+        System.out.println("It's " + Player2 + "'s turn now!");
+      } else {
+        activePlayer = 1;
+        System.out.println("It's " + Player1 + "'s turn now!");
+      }
     // if the letter guessed was correct
     } else {
       System.out.println("Yep, that letter is in the phrase.");

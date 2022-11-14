@@ -12,6 +12,10 @@ public class Player {
         name = sc.nextLine();
     }
 
+    public void addScore(int newScore){
+        score += newScore;
+    }
+
     public String toString(){
         return name;
     }
