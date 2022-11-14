@@ -29,10 +29,12 @@ public class Board{
     }
   }
   
+  // prints the board with spaces and any letters guessed 
   public void printBoard(){
     System.out.println(phraseBlanks);
   }
 
+  //starts the game
   public void initiateGame(){
     System.out.println("\033[H\033[2J");
     System.out.println(phraseBlanks);
@@ -49,7 +51,7 @@ public class Board{
     System.out.println("Congratulations, you got it!");
   }
 
-  // gets the input for 
+  // gets the input for a guess or a phrase
   public String getInput(){
     String input = sc.nextLine();
     while (input.length() != 1){
@@ -69,14 +71,19 @@ public class Board{
     String tempString = phrase;
     System.out.println("\033[H\033[2J");
     int charLocation = phrase.indexOf(guess);
+    // if the player already guessed the letter
     if (lettersGuessed.indexOf(guess) != -1){
       System.out.println("You already guessed this!");
+    // if the player guessed incorrectly
     } else if (charLocation == -1){
       System.out.println("Nope, that letter isn't in the phrase.");
+    // adds the letter to the 'letters guessed' pool
       lettersGuessed += guess + " ";
+    // if the letter guessed was correct
     } else {
       System.out.println("Yep, that letter is in the phrase.");
       numLetters = 0;
+      // adds the letter to the 'letters guessed' pool
       lettersGuessed += guess + " ";
       while (charLocation != -1){
         charLocation += phrase.length() - tempString.length();
