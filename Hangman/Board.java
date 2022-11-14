@@ -9,11 +9,18 @@ public class Board{
   String letters = "";
   String lettersGuessed = "";
   String phraseBlanks = phrase;
+  int activePlayer = 1;
   
   // how many of the letter guessed is in the phrase
   int numLetters;
   Scanner sc = new Scanner(System.in);
+
   
+  Spinner s = new Spinner();
+  
+  Player Player1;
+  Player Player2;
+
   
   public Board(){
     for (int i = 0; i < phrase.length(); i++){
@@ -29,6 +36,7 @@ public class Board{
     }
   }
   
+
   // prints the board with spaces and any letters guessed 
   public void printBoard(){
     System.out.println(phraseBlanks);
@@ -38,12 +46,13 @@ public class Board{
   public void initiateGame(){
     System.out.println("\033[H\033[2J");
     System.out.println(phraseBlanks);
-    System.out.println("Guess the letter or the phrase!");
+    System.out.println("Guess the letter or the phrase! " + );
     while (finished == false){
+      int randomNumber =  s.getRandomNum();
+      System.out.println(randomNumber);
       makeGuess(getInput());
+      // player gets score of [value * numLetters]
 
-      //score 
-      
       if (phraseBlanks.equals(phrase)){
         finished = true;
       }
@@ -79,6 +88,10 @@ public class Board{
       System.out.println("Nope, that letter isn't in the phrase.");
     // adds the letter to the 'letters guessed' pool
       lettersGuessed += guess + " ";
+      // switches player if they make a wrong guess
+      if (activePlayer == 1){
+        activePlayer = 2;
+      } else activePlayer = 1;
     // if the letter guessed was correct
     } else {
       System.out.println("Yep, that letter is in the phrase.");
