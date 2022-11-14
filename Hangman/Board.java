@@ -22,7 +22,7 @@ public class Board{
   Player Player2;
 
   
-  public Board(){
+  public Board(Player play1, Player play2){
     for (int i = 0; i < phrase.length(); i++){
       String letter = phrase.substring(i, i + 1);
     
@@ -46,12 +46,13 @@ public class Board{
   public void initiateGame(){
     System.out.println("\033[H\033[2J");
     System.out.println(phraseBlanks);
-    System.out.println("Guess the letter or the phrase! " + );
+    System.out.println("Guess the letter or the phrase! " + Player1 + " goes first!");
     while (finished == false){
       int randomNumber =  s.getRandomNum();
       System.out.println(randomNumber);
       makeGuess(getInput());
       // player gets score of [value * numLetters]
+      
 
       if (phraseBlanks.equals(phrase)){
         finished = true;
