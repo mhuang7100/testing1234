@@ -51,14 +51,28 @@ public class Board{
     System.out.println(phraseBlanks);
     System.out.println("Guess the letter or the phrase! " + Player1 + " goes first!");
     while (finished == false){
+      // spins a random number
       int randomNumber =  s.getRandomNum();
-      System.out.println(randomNumber);
-      makeGuess(getInput());
-      // player gets score of [value * numLetters]
+      if (activePlayer == 1){
+        System.out.println(Player1 + " spun " + randomNumber + "!");
+      } else System.out.println(Player2 + " spun " + randomNumber + "!");
+
+      numLetters = 0;
+      String input = getInput();
+      if (input.equals(phrase)){
+        System.out.println("You got it!");
+        if (activePlayer == 1){
+          Player1.addScore((letters.length() - lettersGuessed.length()) * 100 + 1000);
+        } else Player2.addScore((letters.length() - lettersGuessed.length()) * 100 + 1000);
+      } else makeGuess(getInput());
+
       if (activePlayer == 1){
         Player1.addScore(numLetters * randomNumber);
       } else Player2.addScore(numLetters * randomNumber);
+      
 
+      System.out.println(Player1 + "'s score: " + Player1.getScore());
+      System.out.println(Player2 + "'s score: " + Player2.getScore());
 
 
       if (phraseBlanks.equals(phrase)){
@@ -72,8 +86,7 @@ public class Board{
     String input = sc.nextLine();
     while (input.length() != 1){
       if (input.equals(phrase)){
-        System.out.println("Wow! you guessed it!");
-        System.exit(0);
+        break;
       } else {
         System.out.println("Please input a letter!");
         input = sc.nextLine();
@@ -89,9 +102,18 @@ public class Board{
     int charLocation = phrase.indexOf(guess);
     // if the player already guessed the letter
     if (lettersGuessed.indexOf(guess) != -1){
-      System.out.println("You already guessed this!");
+      numLetters = 0;
+      System.out.println("You already guessed this! ");
+      if (activePlayer == 1){
+        activePlayer = 2;
+        System.out.println("It's " + Player2 + "'s turn now!");
+      } else {
+        activePlayer = 1;
+        System.out.println("It's " + Player1 + "'s turn now!");
+      }
     // if the player guessed incorrectly
     } else if (charLocation == -1){
+      numLetters = 0;
       System.out.println("Nope, that letter isn't in the phrase.");
     // adds the letter to the 'letters guessed' pool
       lettersGuessed += guess + " ";
@@ -116,9 +138,19 @@ public class Board{
         numLetters += 1;
         charLocation = tempString.indexOf(guess);
       }
+
+    
+
+      
     }
     printBoard();
     System.out.println("\nLetters guessed:" + lettersGuessed);
+  }
+
+  public void switchPlayer(){
+    if (activePlayer == 1){
+      activePlayer = 2;
+    } else activePlayer = 1;
   }
 
   private static String loadPhrase()

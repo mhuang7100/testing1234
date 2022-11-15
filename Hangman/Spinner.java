@@ -4,8 +4,7 @@ public class Spinner {
     int randomNumber;  
     
     public int getRandomNum(){
-        this.randomNumber=(int)((Math.random() * 2500));
-        System.out.println("You got: "+ randomNumber);
+        randomNumber= ((int)((Math.random() * 24) + 1) * 100);
         return this.randomNumber;
     }
     
