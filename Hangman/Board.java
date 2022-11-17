@@ -49,7 +49,10 @@ public class Board{
   public void initiateGame(){
     System.out.println("\033[H\033[2J");
     System.out.println(phraseBlanks);
-    System.out.println("Guess the letter or the phrase! " + Player1 + " goes first!");
+    System.out.println("Guess the letter or the phrase!");
+    if (activePlayer == 1){
+      System.out.println(Player1 + " goes first!");
+    } else System.out.println(Player2 + " goes first!");
     while (finished == false){
       // spins a random number which is awarded based on the number of correct letters
       int randomNumber =  s.getRandomNum();
@@ -66,7 +69,7 @@ public class Board{
         System.out.println(phrase);
         finished = true;
         if (activePlayer == 1){
-          Player1.addScore((int) (((double) letters.length() / (double) lettersGuessed.length()) * 4) * 1000);
+          Player1.addScore((int) (((double) letters.length() / (double) lettersGuessed.length()) * 3) * 1000);
         } else Player2.addScore((letters.length() - lettersGuessed.length()) * 100 + 1000);
       // if they guess a letter, make the guess
       } else if (input.length() != 1){
@@ -114,7 +117,7 @@ public class Board{
       numLetters = 0;
       System.out.println("Nope, that letter isn't in the phrase.");
     // adds the letter to the 'letters guessed' pool
-      lettersGuessed += guess + " ";
+      addLetter(guess);
       // switches player if they make a wrong guess
       switchPlayerPrint();
     // if the letter guessed was correct
@@ -122,13 +125,22 @@ public class Board{
       System.out.println("Yep, that letter is in the phrase.");
       numLetters = 0;
       // adds the letter to the 'letters guessed' pool
-      lettersGuessed += guess + " ";
+      addLetter(guess);
       while (charLocation != -1){
         charLocation += phrase.length() - tempString.length();
         phraseBlanks = phraseBlanks.substring(0, charLocation) + guess + phraseBlanks.substring(charLocation + 1);
         tempString = phrase.substring(charLocation + 1);
         numLetters += 1;
         charLocation = tempString.indexOf(guess);
+      }
+    }
+  }
+
+  public void addLetter(String letter){
+    // doesn't add letter to lettersGuessed if it isn't a letter
+    if (!letter.equals(".") && !letter.equals(",") && !letter.equals(";") && !letter.equals(":") && !letter.equals("'") && !letter.equals("/") && !letter.equals("!") && !letter.equals("?") && !letter.equals("-")){
+      if (!letter.equals("1") && !letter.equals("2") && !letter.equals("3") && !letter.equals("4") && !letter.equals("5") && !letter.equals("6") && !letter.equals("7") && !letter.equals("8") && !letter.equals("9") && !letter.equals("0")){
+        lettersGuessed += letter + " ";
       }
     }
   }
