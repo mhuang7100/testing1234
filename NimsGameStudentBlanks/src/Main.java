@@ -29,7 +29,7 @@ public class Main {
                 //This is the loop in which the game will be played
                 while(!game.isComplete()){
                    //TO DO
-                    game.takePiece();
+                    currentPlayer.adjustScore(game.takePiece());
                     currentPlayer = game.getNextPlayer();
                 }
                 System.out.println(currentPlayer.getName()+ " Won!!");
