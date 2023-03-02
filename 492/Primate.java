@@ -8,4 +8,7 @@ public class Primate extends Animal
   {
     System.out.println("The primate forages for food.");
   }
+  public void speak(){
+    forage();
+  }
 }

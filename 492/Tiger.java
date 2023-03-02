@@ -10,4 +10,7 @@ public class Tiger extends Feline{
     public void huntAlone(){
         System.out.println("The Tiger hunts alone");
     }
+    public void speak(){
+        growl();
+    }
 }

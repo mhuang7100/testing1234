@@ -16,6 +16,10 @@ public class Animal
   public Animal(){
   }
 
+  public void speak(){
+    System.out.println("An animal arrives");
+  }
+
   public void eat() 
   {
     System.out.println("This animal's diet consists of " + food + ".");

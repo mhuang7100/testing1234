@@ -14,4 +14,7 @@ public class Hippo extends Hooved
   {
     System.out.println("The hippo groans.");
   }
+  public void speak(){
+    groan();
+  }
 }

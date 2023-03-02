@@ -7,8 +7,14 @@ public class Giraffe extends Hooved
     super(food, nocturnal, aveLifeSpan);
     System.out.println("A feline arrives");
   }
+  public Giraffe(){
+    
+  }
   public void hum()
   {
     System.out.println("The giraffe hums.");
+  }
+  public void speak(){
+    hum();
   }
 }
